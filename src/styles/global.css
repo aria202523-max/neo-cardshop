@@ -1,0 +1,55 @@
+@import "./tokens.css";
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", Roboto, "Hiragino Sans", "Yu Gothic", sans-serif;
+  line-height: 1.7;
+}
+
+a, button, input { font-family: inherit; }
+
+.display {
+  font-family: "Arial Black", "Yu Gothic UI", "Hiragino Sans", -apple-system, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.mono {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Yu Gothic", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.page { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; }
+
+footer.note { padding-top: 32px; font-size: 13px; color: var(--ink-soft); }
+
+/* ---- price list (shared by the TOP sample card and the full kaitorihyo page) ---- */
+.price-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.price-card-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: var(--ink); color: var(--paper); font-weight: 900; font-size: 14px; }
+.price-row { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 14px 20px; border-top: 1px solid var(--line); }
+.price-row:first-child { border-top: none; }
+.price-thumb {
+  width: 52px; height: 52px; flex: 0 0 auto; border-radius: 8px; overflow: hidden;
+  background: var(--paper-raised); border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+}
+.price-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.price-thumb-empty { font-size: 9px; font-weight: 700; letter-spacing: 0.03em; color: var(--ink-soft); }
+.price-row-name { font-size: 14px; font-weight: 700; }
+.price-row-sub { margin-top: 6px; }
+.slab-tag { display: inline-flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid var(--ink); }
+.slab-tag .bar { height: 4px; background: var(--ink); }
+.slab-tag .label { font-size: 10px; font-weight: 900; letter-spacing: 0.05em; padding: 3px 8px; background: var(--ink); color: var(--paper); }
+.tag-retro { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: var(--paper-raised); border: 1px solid var(--ink); color: var(--ink); }
+.price-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.price-value { font-size: 19px; font-weight: 900; white-space: nowrap; }
+.price-diff-up { color: var(--ink-soft); font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .price-thumb { width: 40px; height: 40px; }
+  .price-value { font-size: 16px; }
+}

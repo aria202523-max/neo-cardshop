@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="在庫一覧・銀行振込でのご注文 | trading card shop NEO"
+  description="NEOの在庫商品一覧です。気になる商品を選んで注文リクエストを送ると、店舗より銀行振込のご案内メールをお送りします。"
+  current="zaiko"
+>
+  <div class="page-head">
+    <h1 class="display">在庫一覧</h1>
+    <div class="updated" id="updatedLabel">読み込み中…</div>
+  </div>
+
+  <p class="lead">
+    気になる商品の「この商品を注文する」を押すと、下の注文フォームに商品が入力されます。
+    フォーム送信後、店舗より<strong>銀行振込のご案内メール</strong>をお送りします(オンライン決済はまだ対応していません)。
+  </p>
+
+  <div class="stock-grid" id="stockGrid"></div>
+
+  <section class="order-section" id="orderForm-section">
+    <h2 class="display">注文リクエスト</h2>
+    <p class="order-note">送信後、こちらから折り返しご連絡し、振込先をご案内します。</p>
+
+    <form name="zaiko-order" method="POST" data-netlify="true" id="orderForm">
+      <input type="hidden" name="form-name" value="zaiko-order" />
+      <p class="hp-field"><label>ウェブサイト(入力しないでください) <input name="bot-field" /></label></p>
+
+      <div class="order-item-display" id="orderItemDisplay">商品を選択してください</div>
+      <input type="hidden" id="orderItemField" name="商品" />
+
+      <label class="form-row">
+        <span>お名前</span>
+        <input type="text" name="お名前" required />
+      </label>
+      <label class="form-row">
+        <span>ご連絡先(メールまたは電話番号)</span>
+        <input type="text" name="連絡先" required />
+      </label>
+      <label class="form-row">
+        <span>数量</span>
+        <input type="number" name="数量" min="1" value="1" required />
+      </label>
+      <label class="form-row">
+        <span>備考</span>
+        <textarea name="備考" rows="3"></textarea>
+      </label>
+
+      <button type="submit" class="submit-btn display">注文をリクエストする</button>
+    </form>
+  </section>
+
+  <Fragment slot="footer">
+    在庫はGoogleスプレッドシートと連携し、自動反映されます。注文リクエストはメールで店舗に通知されます(決済は銀行振込・店舗案内制です)。
+  </Fragment>
+</BaseLayout>
+
+<script>
+  import { initZaikoPage } from "../../scripts/zaiko.js";
+  initZaikoPage(document);
+</script>
+
+<style>
+  .page-head { padding: 28px 0 18px; }
+  .page-head h1 { font-size: clamp(24px, 3.4vw, 34px); margin: 0 0 6px; }
+  .page-head .updated { font-size: 13px; color: var(--ink-soft); }
+
+  .lead { font-size: 14px; color: var(--ink-soft); max-width: 70ch; margin: 0 0 24px; }
+  .lead strong { color: var(--ink); }
+
+  .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .stock-grid :global(.stock-card) {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .stock-grid :global(.stock-photo) {
+    aspect-ratio: 4/3; background: var(--paper-raised); display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); font-size: 12px; font-weight: 700;
+  }
+  .stock-grid :global(.stock-photo img) { width: 100%; height: 100%; object-fit: cover; }
+  .stock-grid :global(.stock-body) { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .stock-grid :global(.stock-status) {
+    align-self: flex-start; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+    background: var(--paper-raised); border: 1px solid var(--line); color: var(--ink-soft);
+  }
+  .stock-grid :global(.stock-name) { font-size: 15px; font-weight: 700; }
+  .stock-grid :global(.stock-condition) { font-size: 12px; color: var(--ink-soft); }
+  .stock-grid :global(.stock-desc) { font-size: 12px; color: var(--ink-soft); margin: 4px 0; }
+  .stock-grid :global(.stock-price) { font-size: 19px; font-weight: 900; margin-top: 4px; }
+  .stock-grid :global(.stock-order-btn) {
+    margin-top: 10px; padding: 10px 14px; border-radius: 8px; border: 2px solid var(--ink);
+    background: var(--ink); color: var(--paper); font-weight: 700; font-size: 13px; cursor: pointer;
+  }
+  .stock-grid :global(.stock-order-btn:hover) { filter: brightness(0.9); }
+
+  .order-section { border-top: 1px solid var(--line); padding-top: 32px; }
+  .order-note { font-size: 13px; color: var(--ink-soft); margin: 0 0 20px; }
+
+  .hp-field { position: absolute; left: -9999px; }
+
+  .order-item-display {
+    padding: 12px 16px; border-radius: 8px; background: var(--paper-raised); border: 1px solid var(--line);
+    font-size: 14px; font-weight: 700; margin-bottom: 18px;
+  }
+  .order-item-display.is-error { border-color: var(--ink); background: var(--paper); }
+
+  form#orderForm { display: flex; flex-direction: column; gap: 16px; max-width: 520px; }
+  .form-row { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; }
+  .form-row input, .form-row textarea {
+    font-size: 14px; padding: 12px 14px; border-radius: 8px; border: 2px solid var(--ink);
+    background: var(--surface); color: var(--ink); font-weight: 400;
+  }
+  .submit-btn {
+    align-self: flex-start; padding: 14px 28px; border-radius: 999px; border: none;
+    background: var(--ink); color: var(--paper); font-size: 14px; cursor: pointer;
+  }
+  .submit-btn:hover { filter: brightness(0.9); }
+</style>

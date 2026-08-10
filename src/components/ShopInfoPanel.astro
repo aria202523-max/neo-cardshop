@@ -1,0 +1,42 @@
+---
+const mapQuery = "東京都千代田区外神田3丁目5-1 エトランゼ18";
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=16&output=embed`;
+---
+
+<div class="shop-panel" id="shop-info">
+  <div class="shop-panel-media">
+    <iframe
+      class="map-embed"
+      src={mapSrc}
+      title="trading card shop NEOの地図"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+  <div class="shop-panel-info">
+    <div class="shop-name display">trading card shop NEO</div>
+    <dl class="shop-meta">
+      <div><dt>住所</dt><dd>〒101-0021 東京都千代田区外神田3丁目5-1 エトランゼ18 3F</dd></div>
+      <div><dt>営業時間</dt><dd class="mono">13:00 – 19:00</dd></div>
+      <div><dt>定休日</dt><dd>水曜・木曜</dd></div>
+    </dl>
+  </div>
+</div>
+
+<style>
+  .shop-panel { display: grid; grid-template-columns: 0.9fr 1.1fr; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 32px; scroll-margin-top: 16px; }
+  .shop-panel-media { position: relative; background: var(--paper-raised); border-right: 1px solid var(--line); min-height: 200px; }
+  .shop-panel-media::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ink); z-index: 1; }
+  .map-embed { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) contrast(1.1); }
+  .shop-panel-info { padding: 26px 28px; }
+  .shop-name { font-size: 20px; margin-bottom: 16px; }
+  .shop-meta { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .shop-meta > div { display: flex; flex-direction: column; gap: 2px; }
+  .shop-meta dt { font-size: 11px; letter-spacing: 0.08em; color: var(--ink-soft); }
+  .shop-meta dd { margin: 0; font-size: 14px; font-weight: 700; }
+
+  @media (max-width: 560px) {
+    .shop-panel { grid-template-columns: 1fr; }
+    .shop-panel-media { border-right: none; border-bottom: 1px solid var(--line); min-height: 130px; }
+  }
+</style>

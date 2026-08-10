@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroBanner from "../components/HeroBanner.astro";
+import GenreChipStrip from "../components/GenreChipStrip.astro";
+import SidebarCategoryList from "../components/SidebarCategoryList.astro";
+import PromoBanner from "../components/PromoBanner.astro";
+import PriceTable from "../components/PriceTable.astro";
+import ShopInfoPanel from "../components/ShopInfoPanel.astro";
+
+const sampleRows = [
+  {
+    name: "PSA10 鑑定品(初期エラー版)",
+    tag: { type: "graded" as const, label: "GRADED · 10" },
+    price: "¥98,000",
+    diff: "▲2,000",
+  },
+  {
+    name: "旧裏面 レアカード(美品)",
+    tag: { type: "retro" as const },
+    price: "¥34,500",
+    diff: "▲500",
+  },
+  {
+    name: "海外版パラレル(並品)",
+    tag: { type: "retro" as const },
+    price: "¥6,200",
+  },
+];
+---
+
+<BaseLayout
+  title="trading card shop NEO | 秋葉原の鑑定品・レトロカード専門店"
+  description="秋葉原のトレーディングカードショップNEO。鑑定品・レトロカードの販売、店頭・宅配買取に対応しています。"
+  current="top"
+>
+  <HeroBanner />
+  <GenreChipStrip />
+
+  <div class="content-grid">
+    <SidebarCategoryList />
+    <main>
+      <PromoBanner variant="plain" title="夏の宅配買取キャンペーン開催中!!" subtitle="送料無料・査定額+10%アップ中" />
+      <PromoBanner variant="premium" title="鑑定品・レトロカード特集コーナー、店頭で拡大中" subtitle="旧裏面・エラーカードなど多数入荷" />
+      <PriceTable title="本日の買取価格" updated="2026.08.07 更新" rows={sampleRows} />
+      <ShopInfoPanel />
+    </main>
+  </div>
+
+  <Fragment slot="footer">
+    trading card shop NEO — 鑑定品・レトロカードの買取/販売、宅配買取にも対応しています。
+  </Fragment>
+</BaseLayout>
+
+<style>
+  .content-grid { display: grid; grid-template-columns: 210px 1fr; gap: 22px; padding: 20px 0 40px; }
+
+  @media (max-width: 860px) {
+    .content-grid { grid-template-columns: 1fr; }
+  }
+</style>

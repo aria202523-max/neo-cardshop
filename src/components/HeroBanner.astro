@@ -1,0 +1,94 @@
+---
+---
+
+<section class="hero-banner">
+  <div class="hero-copy">
+    <span class="hero-chip">鑑定品・レトロカード入荷</span>
+    <h1 class="hero-title display">その一枚を、<span class="accent">NEO</span>で掘り出す。</h1>
+    <p class="hero-sub">PSA鑑定品から旧裏面レトロカードまで。店頭・宅配どちらの買取にも対応しています。</p>
+    <a class="hero-btn display" href="/zaiko/">在庫をチェックする</a>
+  </div>
+  <div class="hero-visual">
+    <div class="card-fan">
+      <div class="foil-card card-a"><div class="foil-card-inner"><img src="/images/hero-card-riza.jpg" alt="リザードン" /></div></div>
+      <div class="foil-card card-c"><div class="foil-card-inner"><img src="/images/hero-card-nami.png" alt="ナミ" /></div></div>
+      <div class="foil-card card-b"><div class="foil-card-inner"><img src="/images/hero-card-pika.jpg" alt="ピカチュウ" /></div></div>
+    </div>
+    <div class="hologram-seal scallop">
+      <div class="hologram-seal-inner scallop">
+        <img class="seal-photo" src="/images/mascot-neo-chan.jpg" alt="NEO公式キャラクター" width="120" height="120" />
+      </div>
+    </div>
+  </div>
+</section>
+<div class="dots" aria-hidden="true">
+  <span class="active"></span><span></span><span></span><span></span><span></span>
+</div>
+
+<style>
+  .hero-banner {
+    position: relative; margin-top: 18px; border-radius: 14px; overflow: hidden;
+    background: var(--zone-dark-bg); min-height: 340px;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center;
+    padding: 40px; gap: 24px; color: var(--zone-dark-text);
+  }
+  .hero-banner::before, .hero-banner::after { content: ""; position: absolute; z-index: 0; }
+  .hero-banner::before {
+    width: 60%; height: 220%; background: var(--zone-dark-panel); opacity: 0.9;
+    top: -60%; left: -18%; transform: rotate(18deg);
+  }
+  .hero-banner::after {
+    width: 34%; height: 220%; background: #46454c; opacity: 0.8;
+    top: -60%; left: 10%; transform: rotate(18deg);
+  }
+  .hero-copy { position: relative; z-index: 1; }
+  .hero-chip { display: inline-block; background: #fff; color: #101010; font-weight: 900; font-size: 13px; padding: 6px 12px; border-radius: 3px; margin-bottom: 16px; }
+  h1.hero-title { font-size: clamp(28px, 4.2vw, 46px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; }
+  h1.hero-title .accent {
+    background: var(--zone-dark-text); color: var(--zone-dark-bg);
+    padding: 0 8px; border-radius: 4px;
+  }
+  .hero-sub { font-size: 15px; color: var(--zone-dark-text-soft); max-width: 42ch; margin: 0 0 22px; }
+  .hero-btn {
+    display: inline-block; background: var(--zone-dark-text); color: var(--zone-dark-bg);
+    font-weight: 900; font-size: 14px; border: none; border-radius: 999px; padding: 13px 26px;
+    cursor: pointer; text-decoration: none;
+  }
+  .hero-visual { position: relative; z-index: 1; height: 100%; min-height: 220px; }
+  .card-fan { position: absolute; inset: 0; }
+  .foil-card {
+    position: absolute; top: 50%; left: 50%; width: 44%; aspect-ratio: 5/7;
+    border-radius: 7% / 5%; background: var(--zone-dark-text);
+    border: 2px solid var(--zone-dark-bg);
+    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.6); overflow: hidden;
+  }
+  .foil-card-inner {
+    position: absolute; inset: 6%; border-radius: 5% / 4%; background: var(--zone-dark-bg);
+    overflow: hidden;
+  }
+  .foil-card-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card-a { transform: translate(-50%,-50%) rotate(-15deg) translateX(-34%); z-index: 1; opacity: 0.9; }
+  .card-b { transform: translate(-50%,-50%) rotate(-1deg) translateY(-6%); z-index: 2; }
+  .card-c { transform: translate(-50%,-50%) rotate(13deg) translateX(34%); z-index: 1; opacity: 0.9; }
+
+  .scallop {
+    clip-path: polygon(50.0% 2.0%, 63.0% 10.1%, 78.2% 11.2%, 84.0% 25.3%, 95.6% 35.2%, 92.0% 50.0%, 95.6% 64.8%, 84.0% 74.7%, 78.2% 88.8%, 63.0% 89.9%, 50.0% 98.0%, 37.0% 89.9%, 21.8% 88.8%, 16.0% 74.7%, 4.4% 64.8%, 8.0% 50.0%, 4.4% 35.2%, 16.0% 25.3%, 21.8% 11.2%, 37.0% 10.1%);
+  }
+  .hologram-seal {
+    position: absolute; left: -2%; bottom: 4%; width: 30%; aspect-ratio: 1;
+    background: var(--zone-dark-text); z-index: 3; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.5)); transform: rotate(-8deg);
+  }
+  .hologram-seal-inner { position: absolute; inset: 9%; background: #fff; overflow: hidden; }
+  .seal-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; transform: scale(1.5); transform-origin: center;
+  }
+  .dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: inline-block; }
+  .dots span.active { background: var(--ink); }
+
+  @media (max-width: 860px) {
+    .hero-banner { grid-template-columns: 1fr; padding: 28px; }
+    .hero-visual { min-height: 180px; }
+  }
+</style>

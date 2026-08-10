@@ -1,0 +1,12 @@
+---
+import { CATEGORIES } from "../data/categories.js";
+---
+
+<div class="franchise-strip">
+  {CATEGORIES.map((c) => <span class="franchise-chip">{c.label}</span>)}
+</div>
+
+<style>
+  .franchise-strip { display: flex; gap: 10px; overflow-x: auto; padding: 18px 2px; }
+  .franchise-chip { flex: 0 0 auto; padding: 8px 16px; border-radius: 999px; background: var(--paper-raised); border: 1px solid var(--line); font-weight: 700; font-size: 13px; white-space: nowrap; }
+</style>

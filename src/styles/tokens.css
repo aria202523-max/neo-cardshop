@@ -1,0 +1,35 @@
+:root {
+  --ink: #26252a;
+  --ink-soft: #6b6870;
+  --paper: #ffffff;
+  --paper-raised: #f2f2f2;
+  --line: #e2e2e2;
+  --surface: #ffffff;
+
+  /* fixed dark zone used by the hero banner / cards / hologram seal —
+     deliberately does not flip with theme, same reasoning as a printed graphic */
+  --zone-dark-bg: #29282e;
+  --zone-dark-panel: #3a3940;
+  --zone-dark-text: #f5f5f5;
+  --zone-dark-text-soft: #d8d8d8;
+}
+
+:root[data-theme="dark"] {
+  --ink: #f2f2f2;
+  --ink-soft: #b8b8b8;
+  --paper: #1a191d;
+  --paper-raised: #242329;
+  --line: #3a3940;
+  --surface: #201f24;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f2f2f2;
+    --ink-soft: #b8b8b8;
+    --paper: #1a191d;
+    --paper-raised: #242329;
+    --line: #3a3940;
+    --surface: #201f24;
+  }
+}
