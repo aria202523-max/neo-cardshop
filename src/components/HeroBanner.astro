@@ -14,11 +14,6 @@
       <div class="foil-card card-c"><div class="foil-card-inner"><img src="/images/hero-card-nami.png" alt="ナミ" /></div></div>
       <div class="foil-card card-b"><div class="foil-card-inner"><img src="/images/hero-card-pika.jpg" alt="ピカチュウ" /></div></div>
     </div>
-    <div class="hologram-seal scallop">
-      <div class="hologram-seal-inner scallop">
-        <img class="seal-photo" src="/images/mascot-neo-chan.jpg" alt="NEO公式キャラクター" width="120" height="120" />
-      </div>
-    </div>
   </div>
 </section>
 <div class="dots" aria-hidden="true">
@@ -71,18 +66,6 @@
   .card-b { transform: translate(-50%,-50%) rotate(-1deg) translateY(-6%); z-index: 2; }
   .card-c { transform: translate(-50%,-50%) rotate(13deg) translateX(34%); z-index: 1; opacity: 0.9; }
 
-  .scallop {
-    clip-path: polygon(50.0% 2.0%, 63.0% 10.1%, 78.2% 11.2%, 84.0% 25.3%, 95.6% 35.2%, 92.0% 50.0%, 95.6% 64.8%, 84.0% 74.7%, 78.2% 88.8%, 63.0% 89.9%, 50.0% 98.0%, 37.0% 89.9%, 21.8% 88.8%, 16.0% 74.7%, 4.4% 64.8%, 8.0% 50.0%, 4.4% 35.2%, 16.0% 25.3%, 21.8% 11.2%, 37.0% 10.1%);
-  }
-  .hologram-seal {
-    position: absolute; left: -2%; bottom: 4%; width: 30%; aspect-ratio: 1;
-    background: var(--zone-dark-text); z-index: 3; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.5)); transform: rotate(-8deg);
-  }
-  .hologram-seal-inner { position: absolute; inset: 9%; background: #fff; overflow: hidden; }
-  .seal-photo {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; transform: scale(1.5); transform-origin: center;
-  }
   .dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
   .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: inline-block; }
   .dots span.active { background: var(--ink); }
