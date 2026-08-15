@@ -60,7 +60,8 @@
 ## 実装状況(2026-08-15時点)
 
 - Astroで5ページを実装済み: `/`(トップ、店舗情報セクション込み)/ `/kaitorihyo/`(買取表)/ `/takuhai-kaitori/`(宅配買取、LINE誘導)/ `/zaiko/`(在庫・銀行振込注文)/ `/jisseki/`(買取実績)
-- 買取表・在庫・買取実績データは、Googleスプレッドシートを「ウェブに公開」したCSVをブラウザ側で読み込む方式で実装(`src/data/sheet-config.js`にURLを設定する箇所あり、現在はプレースホルダーのためサンプルデータで表示中。手順は`sheets-template/README.md`参照)
+- 買取表・在庫データは、実際のGoogleスプレッドシートに接続済み(`src/data/sheet-config.js`)。買取実績タブは1行目に見出し行が未追加のため、まだプレースホルダー(サンプル表示)のまま
+- Googleスプレッドシートの真偽値(TRUE/FALSE)にも対応済み(大文字・小文字どちらでも判定できるよう修正)
 - 在庫注文フォームはNetlify Forms対応(`data-netlify="true"`)
 - 宅配買取・ヘッダーの「お問い合わせ」はLINE公式アカウント誘導(`src/data/site-config.js`の`LINE_URL`が現在プレースホルダー)
 - **本番公開済み**: GitHubリポジトリ(https://github.com/aria202523-max/neo-cardshop)とNetlifyを連携し、`git push`で自動デプロイされる状態
@@ -71,5 +72,5 @@
 ## 未決定事項・今後のフォローアップ
 
 - LINE公式アカウントの友だち追加URLが未定のため、`src/data/site-config.js`の`LINE_URL`はプレースホルダーのまま(決まり次第更新すれば宅配買取ページ・ヘッダーの両方に反映される)
-- 実際のGoogleスプレッドシートを作成し、「ウェブに公開」してCSVのURLを`src/data/sheet-config.js`に設定する(手順・列の意味は`sheets-template/README.md`、取り込み用CSVは`sheets-template/kaitorihyo.csv`・`zaiko.csv`・`jisseki.csv`を参照)
+- 買取実績タブに見出し行(`date,category,item_name,image_url,comment`)を追加し、CSV形式で「ウェブに公開」したURLを`JISSEKI_CSV_URL`に設定する(手順は`sheets-template/README.md`参照)
 - ドメイン(cardshop-neo.jp)の取得・接続
