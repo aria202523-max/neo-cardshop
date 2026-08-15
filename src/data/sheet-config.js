@@ -10,9 +10,7 @@
 
 export const KAITORIHYO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTFFru3YoqaHoFrOC7lmPUyAtk_Sfa4OW9Jz7vZT_-9mkB_Ti3axxnG2TTCgx5uYOaQ6oflebEeoJEu/pub?gid=0&single=true&output=csv";
 export const ZAIKO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTFFru3YoqaHoFrOC7lmPUyAtk_Sfa4OW9Jz7vZT_-9mkB_Ti3axxnG2TTCgx5uYOaQ6oflebEeoJEu/pub?gid=1468018503&single=true&output=csv";
-// 買取実績タブは1行目に見出し行(date,category,item_name,image_url,comment)が
-// 未追加のため、追加されるまではプレースホルダーのままにしておく。
-export const JISSEKI_CSV_URL = "REPLACE_WITH_PUBLISHED_CSV_URL_JISSEKI";
+export const JISSEKI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTFFru3YoqaHoFrOC7lmPUyAtk_Sfa4OW9Jz7vZT_-9mkB_Ti3axxnG2TTCgx5uYOaQ6oflebEeoJEu/pub?gid=1282782273&single=true&output=csv";
 
 export function isSheetConfigured(url) {
   return typeof url === "string" && !url.startsWith("REPLACE_WITH_");
