@@ -1,35 +1,40 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINE_URL } from "../data/site-config.js";
 
 const steps = [
   {
-    title: "申し込みフォームを送信",
-    body: "下記フォームにお客様情報と、お売りいただきたいカードの概要をご入力のうえ送信してください。",
+    title: "LINE公式アカウントを友だち追加",
+    body: "下のボタンからNEOのLINE公式アカウントを友だち追加し、トークでご連絡ください。",
   },
   {
-    title: "キットの案内・カードの梱包",
-    body: "申し込み後、店舗より梱包・発送方法をメールでご案内します。案内に沿ってカードを梱包し、発送してください。",
+    title: "カードの写真・状態を送る",
+    body: "お売りいただきたいカードの写真と状態を、LINEのトークで送ってください。簡易査定の目安をお伝えします。",
   },
   {
-    title: "査定",
-    body: "到着後、状態を確認して査定いたします。査定結果はメールでご連絡します。",
+    title: "梱包・発送",
+    body: "発送方法をLINEでご案内します。案内に沿ってカードを梱包し、発送してください。",
   },
   {
     title: "ご入金 または カードの返却",
-    body: "査定額にご了承いただければ指定口座へお振込みします。ご了承いただけない場合はカードを返送します(送料はお客様負担となります)。",
+    body: "到着後に正式査定を行い、結果をLINEでご連絡します。ご了承いただければ指定口座へお振込みします。ご了承いただけない場合はカードを返送します(送料はお客様負担となります)。",
   },
 ];
 ---
 
 <BaseLayout
   title="宅配買取のご案内 | trading card shop NEO"
-  description="NEOの宅配買取のご案内。お申し込みからご入金までの流れと、申し込みフォームをご案内します。"
+  description="NEOの宅配買取のご案内。LINE公式アカウントでのやり取りから、ご入金までの流れをご案内します。"
   current="takuhai"
 >
   <div class="page-head">
     <h1 class="display">宅配買取のご案内</h1>
-    <p class="lead">店頭にお越しいただかなくても、郵送でカードの買取査定を受けられます。鑑定品・レトロカードも歓迎です。</p>
+    <p class="lead">店頭にお越しいただかなくても、LINEでのやり取りだけでカードの買取査定を受けられます。鑑定品・レトロカードも歓迎です。</p>
   </div>
+
+  <a class="line-btn display" href={LINE_URL} target="_blank" rel="noopener noreferrer">
+    LINE公式アカウントを友だち追加する
+  </a>
 
   <ol class="steps">
     {steps.map((step, i) => (
@@ -43,36 +48,12 @@ const steps = [
     ))}
   </ol>
 
-  <section class="apply-section">
-    <h2 class="display">申し込みフォーム</h2>
-
-    <form name="takuhai-kaitori" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="takuhai-kaitori" />
-      <p class="hp-field"><label>ウェブサイト(入力しないでください) <input name="bot-field" /></label></p>
-
-      <label class="form-row">
-        <span>お名前</span>
-        <input type="text" name="お名前" required />
-      </label>
-      <label class="form-row">
-        <span>ご連絡先(メールまたは電話番号)</span>
-        <input type="text" name="連絡先" required />
-      </label>
-      <label class="form-row">
-        <span>返送先ご住所(査定不成立時のカード返送用)</span>
-        <textarea name="返送先住所" rows="2" required></textarea>
-      </label>
-      <label class="form-row">
-        <span>お売りいただきたいカードの概要</span>
-        <textarea name="カードの概要" rows="4" placeholder="例: ポケモンカード 旧裏面 リザードン 1枚、PSA10鑑定品 遊戯王 青眼の白龍 1枚 など" required></textarea>
-      </label>
-
-      <button type="submit" class="submit-btn display">この内容で申し込む</button>
-    </form>
-  </section>
+  <p class="jisseki-link">
+    実際の買取価格は<a href="/jisseki/">買取実績ページ</a>でもご紹介しています。
+  </p>
 
   <Fragment slot="footer">
-    宅配買取のお申し込み内容はメールで店舗に通知されます。梱包キットの要否や発送方法は、お申し込み後の店舗からのご連絡でご案内します。
+    宅配買取のやり取りはLINE公式アカウントで行います。査定・発送方法などのご案内もLINEでお送りします。
   </Fragment>
 </BaseLayout>
 
@@ -81,7 +62,13 @@ const steps = [
   .page-head h1 { font-size: clamp(24px, 3.4vw, 34px); margin: 0 0 6px; }
   .lead { font-size: 14px; color: var(--ink-soft); max-width: 60ch; margin: 0; }
 
-  .steps { list-style: none; margin: 0 0 48px; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .line-btn {
+    display: inline-block; margin: 8px 0 40px; padding: 16px 32px; border-radius: 999px;
+    background: var(--ink); color: var(--paper); font-size: 16px; text-decoration: none;
+  }
+  .line-btn:hover { filter: brightness(0.9); }
+
+  .steps { list-style: none; margin: 0 0 32px; padding: 0; display: flex; flex-direction: column; gap: 18px; }
   .step { display: flex; gap: 16px; align-items: flex-start; }
   .step-num {
     flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--paper);
@@ -90,19 +77,6 @@ const steps = [
   .step-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
   .step-body { margin: 0; font-size: 13px; color: var(--ink-soft); max-width: 60ch; }
 
-  .apply-section { border-top: 1px solid var(--line); padding-top: 32px; }
-
-  .hp-field { position: absolute; left: -9999px; }
-
-  form { display: flex; flex-direction: column; gap: 16px; max-width: 520px; }
-  .form-row { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; }
-  .form-row input, .form-row textarea {
-    font-size: 14px; padding: 12px 14px; border-radius: 8px; border: 2px solid var(--ink);
-    background: var(--surface); color: var(--ink); font-weight: 400; font-family: inherit;
-  }
-  .submit-btn {
-    align-self: flex-start; padding: 14px 28px; border-radius: 999px; border: none;
-    background: var(--ink); color: var(--paper); font-size: 14px; cursor: pointer;
-  }
-  .submit-btn:hover { filter: brightness(0.9); }
+  .jisseki-link { font-size: 13px; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 24px; }
+  .jisseki-link a { color: var(--ink); }
 </style>

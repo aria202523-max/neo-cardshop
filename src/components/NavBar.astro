@@ -1,6 +1,8 @@
 ---
+import { LINE_URL } from "../data/site-config.js";
+
 interface Props {
-  current: "top" | "shop-info" | "kaitorihyo" | "takuhai" | "zaiko" | "contact";
+  current: "top" | "shop-info" | "kaitorihyo" | "takuhai" | "zaiko" | "jisseki" | "contact";
 }
 const { current } = Astro.props;
 
@@ -10,7 +12,8 @@ const items: { key: Props["current"]; label: string; href: string }[] = [
   { key: "kaitorihyo", label: "買取表", href: "/kaitorihyo/" },
   { key: "takuhai", label: "宅配買取", href: "/takuhai-kaitori/" },
   { key: "zaiko", label: "在庫", href: "/zaiko/" },
-  { key: "contact", label: "お問い合わせ", href: "#" },
+  { key: "jisseki", label: "買取実績", href: "/jisseki/" },
+  { key: "contact", label: "お問い合わせ", href: LINE_URL },
 ];
 ---
 

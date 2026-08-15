@@ -15,8 +15,9 @@
 1. トップページ・店舗紹介・アクセス(住所・営業時間・地図)
 2. 取扱カード・ジャンル一覧
 3. 買取表(価格リスト)
-4. 宅配買取誘導ページ(申し込み方法の説明)
+4. 宅配買取誘導ページ(流れの説明+LINE公式アカウントへの誘導)
 5. 在庫販売ページ(銀行振込での注文フォーム)
+6. 買取実績ページ(過去の買取実績をテキスト・写真で紹介)
 
 ## データ運用方針
 
@@ -56,19 +57,19 @@
   - 公式キャラクター画像をロゴ横のアイコンとホログラムシール風パーツに使用
 - デザイン案(最新版)を確認済み: https://claude.ai/code/artifact/42a73eb5-628d-41d5-8daf-9cbaea352ee2
 
-## 実装状況(2026-08-07時点)
+## 実装状況(2026-08-15時点)
 
-- Astroで4ページを実装済み: `/`(トップ、店舗情報セクション込み)/ `/kaitorihyo/`(買取表)/ `/takuhai-kaitori/`(宅配買取)/ `/zaiko/`(在庫・銀行振込注文)
-- 買取表・在庫データは、Googleスプレッドシートを「ウェブに公開」したCSVをブラウザ側で読み込む方式で実装(`src/data/sheet-config.js`にURLを設定する箇所あり、現在はプレースホルダーのためサンプルデータで表示中)
-- 宅配買取・在庫注文フォームはNetlify Forms対応(`data-netlify="true"`)。ホスティングはNetlify想定
-- ローカルでの起動: `astro dev --background` / ビルド: `npm run build`(`netlify.toml`設定済み)
-- 買取表は各行に商品写真のサムネイルを表示できる(スプレッドシートの`image_url`列に画像URLを入れるだけ。未入力の間は「PHOTO」プレースホルダー表示)
-- 店舗情報セクションにGoogleマップの実埋め込み(モノトーンに合わせグレースケール表示)、favicon・OGP画像(マスコット画像から自動生成)を設定済み
+- Astroで5ページを実装済み: `/`(トップ、店舗情報セクション込み)/ `/kaitorihyo/`(買取表)/ `/takuhai-kaitori/`(宅配買取、LINE誘導)/ `/zaiko/`(在庫・銀行振込注文)/ `/jisseki/`(買取実績)
+- 買取表・在庫・買取実績データは、Googleスプレッドシートを「ウェブに公開」したCSVをブラウザ側で読み込む方式で実装(`src/data/sheet-config.js`にURLを設定する箇所あり、現在はプレースホルダーのためサンプルデータで表示中。手順は`sheets-template/README.md`参照)
+- 在庫注文フォームはNetlify Forms対応(`data-netlify="true"`)
+- 宅配買取・ヘッダーの「お問い合わせ」はLINE公式アカウント誘導(`src/data/site-config.js`の`LINE_URL`が現在プレースホルダー)
+- **本番公開済み**: GitHubリポジトリ(https://github.com/aria202523-max/neo-cardshop)とNetlifyを連携し、`git push`で自動デプロイされる状態
+- ヘッダーロゴは透過PNGの公式アートワーク(ドット文字+マスコット)を使用。ローカルでの起動: `astro dev --background` / ビルド: `npm run build`
+- 買取表・買取実績は各項目に商品写真のサムネイルを表示できる(スプレッドシートの`image_url`列に画像URLを入れるだけ。未入力の間は「PHOTO」プレースホルダー表示)
+- 店舗情報セクションにGoogleマップの実埋め込み(モノトーンに合わせグレースケール表示)、favicon・OGP画像を設定済み
 
 ## 未決定事項・今後のフォローアップ
 
-- 「お問い合わせ」導線: LINE公式アカウントに誘導する予定だが、友だち追加URL/IDが未定のため保留(決まり次第 `src/components/NavBar.astro` の`contact`項目とヘッダーCTAを更新)
-- 実際のGoogleスプレッドシートを作成し、「ウェブに公開」してCSVのURLを`src/data/sheet-config.js`に設定する(手順・列の意味は`sheets-template/README.md`、取り込み用CSVは`sheets-template/kaitorihyo.csv`・`sheets-template/zaiko.csv`を参照)
+- LINE公式アカウントの友だち追加URLが未定のため、`src/data/site-config.js`の`LINE_URL`はプレースホルダーのまま(決まり次第更新すれば宅配買取ページ・ヘッダーの両方に反映される)
+- 実際のGoogleスプレッドシートを作成し、「ウェブに公開」してCSVのURLを`src/data/sheet-config.js`に設定する(手順・列の意味は`sheets-template/README.md`、取り込み用CSVは`sheets-template/kaitorihyo.csv`・`zaiko.csv`・`jisseki.csv`を参照)
 - ドメイン(cardshop-neo.jp)の取得・接続
-- Netlifyアカウントでの本番デプロイ、フォーム通知メールの送信先設定
-- マスコット画像は現状JPEG(黒背景)をCSSでトリミングして使用。将来的に透過PNG化できるとより綺麗になる
