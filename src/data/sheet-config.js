@@ -52,17 +52,16 @@ export const ZAIKO_COLUMNS = [
 ];
 
 // Expected columns for the 買取実績 (past buyback results) sheet tab.
+// 買取金額は掲載しない方針のため price 列は持たない。
 // date:      買取日の表示文言 (例: "2026.08.01")
 // category:  ジャンル。他タブと同じ (pokemon / yugioh / onepiece)
 // item_name: 商品名
 // image_url: 商品写真のURL、任意(空欄ならプレースホルダー表示)
-// price:     買取価格の表示文字列
 // comment:   一言コメント、任意 (例: "状態良好で高額査定になりました")
 export const JISSEKI_COLUMNS = [
   "date",
   "category",
   "item_name",
   "image_url",
-  "price",
   "comment",
 ];

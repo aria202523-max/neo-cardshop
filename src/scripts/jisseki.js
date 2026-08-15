@@ -28,7 +28,6 @@ function buildJissekiCard(row) {
   meta.append(el("span", "jisseki-date mono", row.date), el("span", "jisseki-cat", categoryLabel(row.category)));
   body.append(meta);
   body.append(el("div", "jisseki-name", row.item_name));
-  body.append(el("div", "jisseki-price mono", row.price));
   if (row.comment) body.append(el("p", "jisseki-comment", row.comment));
 
   card.append(photo, body);
