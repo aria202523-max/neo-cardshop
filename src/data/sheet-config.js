@@ -8,9 +8,9 @@
 // Until a real URL is set, pages fall back to the bundled sample data in
 // src/data/sample-*.js so the site still works end-to-end during development/review.
 
-export const KAITORIHYO_CSV_URL = "REPLACE_WITH_PUBLISHED_CSV_URL_KAITORIHYO";
-export const ZAIKO_CSV_URL = "REPLACE_WITH_PUBLISHED_CSV_URL_ZAIKO";
-export const JISSEKI_CSV_URL = "REPLACE_WITH_PUBLISHED_CSV_URL_JISSEKI";
+export const KAITORIHYO_CSV_URL = "https://docs.google.com/spreadsheets/d/1uSHOxr789J93OuHYOd5g6PLeYgyvGEFDVhyX6lnGdtg/edit?gid=0#gid=0";
+export const ZAIKO_CSV_URL = "https://docs.google.com/spreadsheets/d/1uSHOxr789J93OuHYOd5g6PLeYgyvGEFDVhyX6lnGdtg/edit?gid=1468018503#gid=1468018503";
+export const JISSEKI_CSV_URL = "https://docs.google.com/spreadsheets/d/1uSHOxr789J93OuHYOd5g6PLeYgyvGEFDVhyX6lnGdtg/edit?gid=1282782273#gid=1282782273";
 
 export function isSheetConfigured(url) {
   return typeof url === "string" && !url.startsWith("REPLACE_WITH_");
