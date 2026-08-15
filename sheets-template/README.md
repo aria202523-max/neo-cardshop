@@ -29,9 +29,9 @@
 | condition | 一覧に表示される状態・鑑定情報の文言 | PSA10 鑑定品(初期エラー版) |
 | price | 表示する価格 | ¥98,000 |
 | diff | 前回比。空欄でも可 | ▲2,000 |
-| graded | 鑑定品なら `true`、それ以外は `false` | true |
+| graded | 鑑定品なら `true`、それ以外は `false`(`TRUE`/`FALSE`でも可) | true |
 | grade_label | gradedがtrueのときのラベル | GRADED・10 |
-| highlight | 「注目の高額買取」にも出すなら `true` | true |
+| highlight | 「注目の高額買取」にも出すなら `true`(`TRUE`でも可) | true |
 
 ### 在庫タブ(zaiko.csv)
 

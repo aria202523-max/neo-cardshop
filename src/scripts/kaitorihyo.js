@@ -10,8 +10,14 @@ function el(tag, className, text) {
   return node;
 }
 
+// Google Sheets auto-detects true/false text as booleans and exports them as
+// "TRUE"/"FALSE" in CSV, so compare case-insensitively rather than to "true".
+function isTrue(value) {
+  return typeof value === "string" && value.trim().toLowerCase() === "true";
+}
+
 function buildTag(row) {
-  if (row.graded === "true") {
+  if (isTrue(row.graded)) {
     const tag = el("span", "slab-tag");
     tag.append(el("span", "bar"), el("span", "label", row.grade_label || "GRADED"));
     return tag;
@@ -64,7 +70,7 @@ function buildHighlightCard(row) {
   }
   card.append(
     photo,
-    el("span", "badge", row.graded === "true" ? row.grade_label || "GRADED" : "RETRO"),
+    el("span", "badge", isTrue(row.graded) ? row.grade_label || "GRADED" : "RETRO"),
     el("div", "name", row.condition || row.card_name),
     el("div", "price mono", row.price)
   );
@@ -72,7 +78,7 @@ function buildHighlightCard(row) {
 }
 
 function renderHighlights(container, rows) {
-  const highlighted = rows.filter((r) => r.highlight === "true").slice(0, 4);
+  const highlighted = rows.filter((r) => isTrue(r.highlight)).slice(0, 4);
   container.innerHTML = "";
   highlighted.forEach((row) => container.append(buildHighlightCard(row)));
   container.closest(".highlight-block")?.classList.toggle("is-empty", highlighted.length === 0);
