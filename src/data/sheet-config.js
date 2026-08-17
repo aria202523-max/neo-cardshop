@@ -20,9 +20,10 @@ export function isSheetConfigured(url) {
 // category:    ジャンル (src/data/categories.js のkeyと合わせる。例: pokemon / yugioh / onepiece)
 // card_name:   検索対象になる商品名
 // image_url:   商品写真のURL、任意(空欄ならプレースホルダー表示)
-// condition:   状態・鑑定情報の表示文言
+// condition:   一覧に表示される状態・鑑定情報の文言
 // price:       表示用の価格文字列 (例: "¥98,000")
-// diff:        前回比の表示文言、任意 (例: "▲2,000")
+// updated:     更新日の表示文言、任意 (例: "8/5")
+// diff:        前回比の表示文言、任意 (例: "▲2,000")。今は表には出していないがデータとしては保持
 // graded:      "true" なら鑑定品スラブ表示、それ以外はRETROタグ表示
 // grade_label: gradedがtrueのときのラベル (例: "GRADED · 10")
 // highlight:   "true" なら「注目の高額買取」セクションにも表示
@@ -32,6 +33,7 @@ export const KAITORIHYO_COLUMNS = [
   "image_url",
   "condition",
   "price",
+  "updated",
   "diff",
   "graded",
   "grade_label",

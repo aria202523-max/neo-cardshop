@@ -28,7 +28,8 @@
 | image_url | 商品写真のURL。空欄でも可(プレースホルダー表示になる) | (空欄でOK) |
 | condition | 一覧に表示される状態・鑑定情報の文言 | PSA10 鑑定品(初期エラー版) |
 | price | 表示する価格 | ¥98,000 |
-| diff | 前回比。空欄でも可 | ▲2,000 |
+| updated | 更新日の表示文言。空欄でも可 | 8/5 |
+| diff | 前回比。空欄でも可(今は表に表示していないがデータとしては保持) | ▲2,000 |
 | graded | 鑑定品なら `true`、それ以外は `false`(`TRUE`/`FALSE`でも可) | true |
 | grade_label | gradedがtrueのときのラベル | GRADED・10 |
 | highlight | 「注目の高額買取」にも出すなら `true`(`TRUE`でも可) | true |

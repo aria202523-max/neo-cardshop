@@ -26,35 +26,36 @@ function buildTag(row) {
 }
 
 function buildThumb(row) {
-  const thumb = el("div", "price-thumb");
+  const thumb = el("div", "pt-thumb");
   if (row.image_url) {
     const img = document.createElement("img");
     img.src = row.image_url;
     img.alt = row.card_name;
-    img.width = 52;
-    img.height = 52;
     thumb.append(img);
   } else {
-    thumb.append(el("span", "price-thumb-empty", "PHOTO"));
+    thumb.append(el("span", "pt-thumb-empty", "PHOTO"));
   }
   return thumb;
 }
 
 function buildPriceRow(row) {
-  const wrap = el("div", "price-row");
-  wrap.dataset.name = row.card_name;
+  const tr = el("tr", "price-row");
+  tr.dataset.name = row.card_name;
 
-  const left = el("div");
-  left.append(el("div", "price-row-name", row.condition || row.card_name));
-  const sub = el("div", "price-row-sub");
+  const thumbTd = el("td", "pt-thumb-cell");
+  thumbTd.append(buildThumb(row));
+
+  const nameTd = el("td", "pt-name-cell");
+  nameTd.append(el("div", "pt-name", row.condition || row.card_name));
+  const sub = el("div", "pt-sub");
   sub.append(buildTag(row));
-  left.append(sub);
+  nameTd.append(sub);
 
-  const stack = el("div", "price-stack");
-  stack.append(el("div", "price-value mono", row.price), el("div", "price-diff-up mono", row.diff || ""));
+  const priceTd = el("td", "pt-price mono", row.price);
+  const dateTd = el("td", "pt-date mono", row.updated || "");
 
-  wrap.append(buildThumb(row), left, stack);
-  return wrap;
+  tr.append(thumbTd, nameTd, priceTd, dateTd);
+  return tr;
 }
 
 function buildHighlightCard(row) {
@@ -95,10 +96,18 @@ function renderCatalog(container, rows) {
     const head = el("div", "cat-group-head");
     head.append(el("h2", "display", categoryLabel(key)), el("span", "count", `${items.length}件`));
 
-    const priceCard = el("div", "price-card");
-    items.forEach((row) => priceCard.append(buildPriceRow(row)));
+    const scroll = el("div", "price-table-scroll");
+    const table = el("table", "price-table");
+    const thead = el("thead");
+    const headRow = el("tr");
+    headRow.append(el("th", "", "画像"), el("th", "", "カード名"), el("th", "pt-th-price", "買取金額"), el("th", "pt-th-date", "更新日"));
+    thead.append(headRow);
+    const tbody = el("tbody");
+    items.forEach((row) => tbody.append(buildPriceRow(row)));
+    table.append(thead, tbody);
+    scroll.append(table);
 
-    group.append(head, priceCard);
+    group.append(head, scroll);
     container.append(group);
   });
 }
