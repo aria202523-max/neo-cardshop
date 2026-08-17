@@ -59,21 +59,14 @@ function buildPriceRow(row) {
 
 function buildHighlightCard(row) {
   const card = el("div", "highlight-card");
-  const photo = el("div", "photo");
   if (row.image_url) {
     const img = document.createElement("img");
     img.src = row.image_url;
-    img.alt = row.card_name;
-    photo.append(img);
+    img.alt = row.condition || row.card_name;
+    card.append(img);
   } else {
-    photo.textContent = "PHOTO";
+    card.append(el("span", "highlight-empty", "PHOTO"));
   }
-  card.append(
-    photo,
-    el("span", "badge", isTrue(row.graded) ? row.grade_label || "GRADED" : "RETRO"),
-    el("div", "name", row.condition || row.card_name),
-    el("div", "price mono", row.price)
-  );
   return card;
 }
 
