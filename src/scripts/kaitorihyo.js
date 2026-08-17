@@ -71,10 +71,14 @@ function buildImageCard(row) {
   return card;
 }
 
-// Shared by both the ピックアップ買取 and 注目の高額買取 sections: filter rows by
-// a boolean column and render each match as a full-width image-only card.
-function renderImageBlock(container, rows, field, max = 4) {
-  const picked = rows.filter((r) => isTrue(r[field])).slice(0, max);
+// Rows flagged true for a given boolean column, capped at `max`.
+function pickRows(rows, field, max = 4) {
+  return rows.filter((r) => isTrue(r[field])).slice(0, max);
+}
+
+// Shared by both the ピックアップ買取 and 注目の高額買取 sections: render a
+// pre-picked list of rows as full-width image-only cards.
+function renderImageBlock(container, picked) {
   container.innerHTML = "";
   picked.forEach((row) => container.append(buildImageCard(row)));
   container.closest(".highlight-block")?.classList.toggle("is-empty", picked.length === 0);
@@ -174,9 +178,15 @@ export async function initKaitorihyoPage(root) {
     }
   }
 
-  renderImageBlock(pickupGrid, rows, "pickup");
-  renderImageBlock(highlightGrid, rows, "highlight");
-  renderCatalog(catalog, rows);
+  // Anything shown as a pickup drops out of every section below it, so the
+  // same card doesn't get repeated down the page.
+  const pickupRows = pickRows(rows, "pickup");
+  const pickupSet = new Set(pickupRows);
+  const remainingRows = rows.filter((r) => !pickupSet.has(r));
+
+  renderImageBlock(pickupGrid, pickupRows);
+  renderImageBlock(highlightGrid, pickRows(remainingRows, "highlight"));
+  renderCatalog(catalog, remainingRows);
   setupFilters(root);
 
   if (updatedLabel) {
