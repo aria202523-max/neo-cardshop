@@ -33,6 +33,7 @@
 | graded | 鑑定品なら `true`、それ以外は `false`(`TRUE`/`FALSE`でも可) | true |
 | grade_label | gradedがtrueのときのラベル | GRADED・10 |
 | highlight | 「注目の高額買取」にも出すなら `true`(`TRUE`でも可) | true |
+| pickup | 一番上の「ピックアップ買取」にも出すなら `true`(`TRUE`でも可)。画像のみの表示 | true |
 
 ### 在庫タブ(zaiko.csv)
 

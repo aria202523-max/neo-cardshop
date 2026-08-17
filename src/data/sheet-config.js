@@ -27,6 +27,7 @@ export function isSheetConfigured(url) {
 // graded:      "true" なら鑑定品スラブ表示、それ以外はRETROタグ表示
 // grade_label: gradedがtrueのときのラベル (例: "GRADED · 10")
 // highlight:   "true" なら「注目の高額買取」セクションにも表示
+// pickup:      "true" なら一番上の「ピックアップ買取」セクションにも表示(画像のみ表示)
 export const KAITORIHYO_COLUMNS = [
   "category",
   "card_name",
@@ -38,6 +39,7 @@ export const KAITORIHYO_COLUMNS = [
   "graded",
   "grade_label",
   "highlight",
+  "pickup",
 ];
 
 // Expected columns for the 在庫 (bank-transfer sale items) sheet tab.

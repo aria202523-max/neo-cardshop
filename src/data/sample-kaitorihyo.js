@@ -14,6 +14,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "true",
     grade_label: "GRADED · 10",
     highlight: "true",
+    pickup: "true",
   },
   {
     category: "pokemon",
@@ -26,6 +27,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "false",
     grade_label: "",
     highlight: "false",
+    pickup: "false",
   },
   {
     category: "pokemon",
@@ -38,6 +40,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "false",
     grade_label: "",
     highlight: "false",
+    pickup: "false",
   },
   {
     category: "yugioh",
@@ -50,6 +53,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "true",
     grade_label: "GRADED · 9",
     highlight: "true",
+    pickup: "false",
   },
   {
     category: "yugioh",
@@ -62,6 +66,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "false",
     grade_label: "",
     highlight: "false",
+    pickup: "false",
   },
   {
     category: "onepiece",
@@ -74,6 +79,7 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "false",
     grade_label: "",
     highlight: "true",
+    pickup: "false",
   },
   {
     category: "onepiece",
@@ -86,5 +92,6 @@ export const SAMPLE_KAITORIHYO_ROWS = [
     graded: "false",
     grade_label: "",
     highlight: "false",
+    pickup: "false",
   },
 ];

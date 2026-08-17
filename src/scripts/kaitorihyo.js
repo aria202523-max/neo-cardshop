@@ -58,7 +58,7 @@ function buildPriceRow(row) {
   return tr;
 }
 
-function buildHighlightCard(row) {
+function buildImageCard(row) {
   const card = el("div", "highlight-card");
   if (row.image_url) {
     const img = document.createElement("img");
@@ -71,11 +71,13 @@ function buildHighlightCard(row) {
   return card;
 }
 
-function renderHighlights(container, rows) {
-  const highlighted = rows.filter((r) => isTrue(r.highlight)).slice(0, 4);
+// Shared by both the ピックアップ買取 and 注目の高額買取 sections: filter rows by
+// a boolean column and render each match as a full-width image-only card.
+function renderImageBlock(container, rows, field, max = 4) {
+  const picked = rows.filter((r) => isTrue(r[field])).slice(0, max);
   container.innerHTML = "";
-  highlighted.forEach((row) => container.append(buildHighlightCard(row)));
-  container.closest(".highlight-block")?.classList.toggle("is-empty", highlighted.length === 0);
+  picked.forEach((row) => container.append(buildImageCard(row)));
+  container.closest(".highlight-block")?.classList.toggle("is-empty", picked.length === 0);
 }
 
 function renderCatalog(container, rows) {
@@ -158,6 +160,7 @@ function setupFilters(root) {
 }
 
 export async function initKaitorihyoPage(root) {
+  const pickupGrid = root.querySelector("#pickupGrid");
   const highlightGrid = root.querySelector("#highlightGrid");
   const catalog = root.querySelector("#catalog");
   const updatedLabel = root.querySelector("#updatedLabel");
@@ -171,7 +174,8 @@ export async function initKaitorihyoPage(root) {
     }
   }
 
-  renderHighlights(highlightGrid, rows);
+  renderImageBlock(pickupGrid, rows, "pickup");
+  renderImageBlock(highlightGrid, rows, "highlight");
   renderCatalog(catalog, rows);
   setupFilters(root);
 
