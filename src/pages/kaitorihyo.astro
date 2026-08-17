@@ -76,13 +76,13 @@ import { CATEGORIES } from "../data/categories.js";
   .highlight-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
   .highlight-head h2 { font-size: 18px; margin: 0; }
   .highlight-head span { font-size: 12px; color: var(--ink-soft); }
-  .highlight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .highlight-grid { display: flex; flex-direction: column; gap: 20px; }
   .highlight-grid :global(.highlight-card) {
-    aspect-ratio: 5/7; border-radius: 12px; overflow: hidden;
+    min-height: 160px; border-radius: 12px; overflow: hidden;
     background: var(--paper-raised); border: 1px solid var(--line);
     display: flex; align-items: center; justify-content: center;
   }
-  .highlight-grid :global(.highlight-card img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .highlight-grid :global(.highlight-card img) { display: block; width: 100%; height: auto; }
   .highlight-grid :global(.highlight-empty) { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
 
   #catalog :global(.cat-group) { padding-bottom: 36px; }
