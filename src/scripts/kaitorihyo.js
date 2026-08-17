@@ -39,7 +39,10 @@ function buildThumb(row) {
 }
 
 function buildPriceRow(row) {
-  const tr = el("tr", "price-row");
+  // Named "pt-row" (not "price-row") on purpose: global.css already defines a
+  // .price-row grid layout for the unrelated TOP-page sample card, and reusing
+  // that class name on a <tr> forced display:grid onto the table row.
+  const tr = el("tr", "pt-row");
   tr.dataset.name = row.card_name;
 
   const thumbTd = el("td", "pt-thumb-cell");
@@ -132,7 +135,7 @@ function setupFilters(root) {
     groups.forEach((group) => {
       const cat = group.getAttribute("data-cat");
       const catMatch = currentCat === "all" || cat === currentCat;
-      const rows = group.querySelectorAll(".price-row");
+      const rows = group.querySelectorAll(".pt-row");
       let visibleInGroup = 0;
 
       rows.forEach((row) => {
