@@ -13,6 +13,18 @@ import { CATEGORIES } from "../data/categories.js";
     <div class="updated" id="updatedLabel">読み込み中…</div>
   </div>
 
+  <div class="highlight-block">
+    <div class="highlight-head">
+      <h2 class="display">ピックアップ買取</h2>
+    </div>
+    <div class="pickup-carousel">
+      <div class="pickup-track" id="pickupGrid"></div>
+      <button class="pickup-nav pickup-prev" type="button" aria-label="前の画像">‹</button>
+      <button class="pickup-nav pickup-next" type="button" aria-label="次の画像">›</button>
+    </div>
+    <div class="pickup-dots" id="pickupDots"></div>
+  </div>
+
   <div class="toolbar">
     <div class="search-box">
       <span class="icon" aria-hidden="true"></span>
@@ -24,13 +36,6 @@ import { CATEGORIES } from "../data/categories.js";
         <button data-cat={c.key} type="button">{c.label}</button>
       ))}
     </div>
-  </div>
-
-  <div class="highlight-block">
-    <div class="highlight-head">
-      <h2 class="display">ピックアップ買取</h2>
-    </div>
-    <div class="highlight-grid" id="pickupGrid"></div>
   </div>
 
   <div class="highlight-block">
@@ -91,6 +96,36 @@ import { CATEGORIES } from "../data/categories.js";
   }
   .highlight-grid :global(.highlight-card img) { display: block; width: 100%; height: auto; }
   .highlight-grid :global(.highlight-empty) { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+
+  /* ---- pickup carousel ---- */
+  .pickup-carousel { position: relative; }
+  .pickup-track {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    border-radius: 12px; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .pickup-track::-webkit-scrollbar { display: none; }
+  .pickup-track :global(.highlight-card) {
+    flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; min-height: 200px; border-radius: 12px; overflow: hidden;
+    background: var(--paper-raised); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pickup-track :global(.highlight-card img) { display: block; width: 100%; height: auto; }
+  .pickup-track :global(.highlight-empty) { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .pickup-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--ink);
+    background: var(--paper); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pickup-nav:hover { filter: brightness(0.94); }
+  .pickup-prev { left: 10px; }
+  .pickup-next { right: 10px; }
+  .pickup-carousel.is-single .pickup-nav { display: none; }
+  .pickup-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }
+  .pickup-dots button {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: none; padding: 0; cursor: pointer;
+  }
+  .pickup-dots button.active { background: var(--ink); }
 
   #catalog :global(.cat-group) { padding-bottom: 36px; }
   #catalog :global(.cat-group-head) {
