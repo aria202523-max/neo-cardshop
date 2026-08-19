@@ -4,28 +4,7 @@ import HeroBanner from "../components/HeroBanner.astro";
 import GenreChipStrip from "../components/GenreChipStrip.astro";
 import SidebarCategoryList from "../components/SidebarCategoryList.astro";
 import PromoBanner from "../components/PromoBanner.astro";
-import PriceTable from "../components/PriceTable.astro";
 import ShopInfoPanel from "../components/ShopInfoPanel.astro";
-
-const sampleRows = [
-  {
-    name: "PSA10 鑑定品(初期エラー版)",
-    tag: { type: "graded" as const, label: "GRADED · 10" },
-    price: "¥98,000",
-    diff: "▲2,000",
-  },
-  {
-    name: "旧裏面 レアカード(美品)",
-    tag: { type: "retro" as const },
-    price: "¥34,500",
-    diff: "▲500",
-  },
-  {
-    name: "海外版パラレル(並品)",
-    tag: { type: "retro" as const },
-    price: "¥6,200",
-  },
-];
 ---
 
 <BaseLayout
@@ -41,7 +20,6 @@ const sampleRows = [
     <main>
       <PromoBanner variant="plain" title="夏の宅配買取キャンペーン開催中!!" subtitle="送料無料・査定額+10%アップ中" />
       <PromoBanner variant="premium" title="鑑定品・レトロカード特集コーナー、店頭で拡大中" subtitle="旧裏面・エラーカードなど多数入荷" />
-      <PriceTable title="本日の買取価格" updated="2026.08.07 更新" rows={sampleRows} />
       <ShopInfoPanel />
     </main>
   </div>
