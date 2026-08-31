@@ -1,6 +1,5 @@
 export const CATEGORIES = [
   { key: "pokemon", label: "ポケモンカード" },
-  { key: "yugioh", label: "遊戯王" },
   { key: "onepiece", label: "ワンピースカードゲーム" },
 ];
 

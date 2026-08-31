@@ -23,7 +23,7 @@
 
 | 列名 | 内容 | 例 |
 |---|---|---|
-| category | ジャンル。`pokemon` / `yugioh` / `onepiece` のいずれか | pokemon |
+| category | ジャンル。`pokemon` / `onepiece` のいずれか | pokemon |
 | card_name | カード名検索で使われる商品名 | リザードン |
 | image_url | 商品写真のURL。空欄でも可(プレースホルダー表示になる) | (空欄でOK) |
 | condition | 一覧に表示される状態・鑑定情報の文言 | PSA10 鑑定品(初期エラー版) |

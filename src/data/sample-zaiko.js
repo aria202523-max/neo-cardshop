@@ -12,16 +12,6 @@ export const SAMPLE_ZAIKO_ROWS = [
     description: "初期版の印刷エラー個体。鑑定ケース入りでお届けします。",
   },
   {
-    id: "Z-002",
-    category: "yugioh",
-    name: "青眼の白龍(初期エラー版)",
-    condition: "鑑定品",
-    price: "¥320,000",
-    image_url: "",
-    status: "在庫あり",
-    description: "PSA9鑑定済み。付属品は鑑定ケースのみです。",
-  },
-  {
     id: "Z-003",
     category: "onepiece",
     name: "ロロノア・ゾロ(SEC パラレル)",

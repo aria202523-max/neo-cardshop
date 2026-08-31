@@ -10,13 +10,6 @@ export const SAMPLE_JISSEKI_ROWS = [
     comment: "鑑定ケース・付属品ともに状態良好で、査定額もかなり伸びました。",
   },
   {
-    date: "2026.07.28",
-    category: "yugioh",
-    item_name: "青眼の白龍(初期エラー版)",
-    image_url: "",
-    comment: "初期エラー特有の印刷ズレが確認でき、鑑定品として高額査定になりました。",
-  },
-  {
     date: "2026.07.20",
     category: "onepiece",
     item_name: "ロロノア・ゾロ(SECパラレル)",

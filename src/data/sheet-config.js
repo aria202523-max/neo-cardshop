@@ -17,7 +17,7 @@ export function isSheetConfigured(url) {
 }
 
 // Expected columns for the 買取表 (buyback price list) sheet tab.
-// category:    ジャンル (src/data/categories.js のkeyと合わせる。例: pokemon / yugioh / onepiece)
+// category:    ジャンル (src/data/categories.js のkeyと合わせる。例: pokemon / onepiece)
 // card_name:   検索対象になる商品名
 // image_url:   商品写真のURL、任意(空欄ならプレースホルダー表示)
 // condition:   一覧に表示される状態・鑑定情報の文言
@@ -58,7 +58,7 @@ export const ZAIKO_COLUMNS = [
 // Expected columns for the 買取実績 (past buyback results) sheet tab.
 // 買取金額は掲載しない方針のため price 列は持たない。
 // date:      買取日の表示文言 (例: "2026.08.01")
-// category:  ジャンル。他タブと同じ (pokemon / yugioh / onepiece)
+// category:  ジャンル。他タブと同じ (pokemon / onepiece)
 // item_name: 商品名
 // image_url: 商品写真のURL、任意(空欄ならプレースホルダー表示)
 // comment:   一言コメント、任意 (例: "状態良好で高額査定になりました")
