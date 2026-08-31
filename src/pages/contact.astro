@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINE_URL } from "../data/site-config.js";
+
+const topics = [
+  "買取・査定に関するご質問",
+  "在庫・商品に関するお問い合わせ",
+  "宅配買取の進捗確認",
+  "その他、店舗へのご相談",
+];
+---
+
+<BaseLayout
+  title="お問い合わせ | trading card shop NEO"
+  description="NEOへのお問い合わせはLINE公式アカウントから承っております。買取・在庫・宅配買取など、お気軽にご連絡ください。"
+  current="contact"
+>
+  <div class="page-head">
+    <h1 class="display">お問い合わせ</h1>
+    <p class="lead">NEOへのお問い合わせは、LINE公式アカウントで承っております。買取・在庫・宅配買取など、お気軽にご連絡ください。</p>
+  </div>
+
+  <a class="line-btn display" href={LINE_URL} target="_blank" rel="noopener noreferrer">
+    LINE公式アカウントを友だち追加する
+  </a>
+
+  <ul class="topics">
+    {topics.map((topic) => <li>{topic}</li>)}
+  </ul>
+
+  <Fragment slot="footer">
+    お問い合わせはLINE公式アカウントのトークで承っております。営業時間内に順次ご返信いたします。
+  </Fragment>
+</BaseLayout>
+
+<style>
+  .page-head { padding: 28px 0 18px; }
+  .page-head h1 { font-size: clamp(24px, 3.4vw, 34px); margin: 0 0 6px; }
+  .lead { font-size: 14px; color: var(--ink-soft); max-width: 60ch; margin: 0; }
+
+  .line-btn {
+    display: inline-block; margin: 8px 0 32px; padding: 16px 32px; border-radius: 999px;
+    background: var(--ink); color: var(--paper); font-size: 16px; text-decoration: none;
+  }
+  .line-btn:hover { filter: brightness(0.9); }
+
+  .topics {
+    list-style: none; margin: 0 0 40px; padding: 0; display: flex; flex-direction: column; gap: 10px;
+    border-top: 1px solid var(--line); padding-top: 20px;
+  }
+  .topics li {
+    font-size: 13px; color: var(--ink-soft); padding-left: 18px; position: relative;
+  }
+  .topics li::before {
+    content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink);
+  }
+</style>
