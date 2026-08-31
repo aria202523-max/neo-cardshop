@@ -3,27 +3,35 @@ import { HERO_SLIDES } from "../data/hero-slides.js";
 ---
 
 <section class="hero-banner">
-  <div class="hero-copy">
-    <span class="hero-chip">鑑定品・レトロカード入荷</span>
-    <h1 class="hero-title display">その一枚を、<span class="accent">NEO</span>で掘り出す。</h1>
-    <p class="hero-sub">PSA鑑定品から旧裏面レトロカードまで。店頭・宅配どちらの買取にも対応しています。</p>
-    <a class="hero-btn display" href="/zaiko/">在庫をチェックする</a>
-  </div>
-  <div class="hero-visual">
-    {HERO_SLIDES.map(([imgA, imgB, imgC], i) => (
-      <div class={i === 0 ? "card-fan is-active" : "card-fan"} data-slide={i}>
-        <div class="foil-card card-a">
-          {imgA ? <img src={imgA} alt="" /> : <div class="foil-card-inner"></div>}
+  {HERO_SLIDES.map((slide, i) => (
+    <div class={i === 0 ? "hero-slide is-active" : "hero-slide"} data-slide={i}>
+      {slide.type === "image" ? (
+        <img class="hero-slide-image" src={slide.image} alt={slide.alt ?? ""} />
+      ) : (
+        <div class="hero-slide-cards">
+          <div class="hero-copy">
+            <span class="hero-chip">鑑定品・レトロカード入荷</span>
+            <h1 class="hero-title display">その一枚を、<span class="accent">NEO</span>で掘り出す。</h1>
+            <p class="hero-sub">PSA鑑定品から旧裏面レトロカードまで。店頭・宅配どちらの買取にも対応しています。</p>
+            <a class="hero-btn display" href="/zaiko/">在庫をチェックする</a>
+          </div>
+          <div class="hero-visual">
+            <div class="card-fan">
+              <div class="foil-card card-a">
+                {slide.cards[0] ? <img src={slide.cards[0]} alt="" /> : <div class="foil-card-inner"></div>}
+              </div>
+              <div class="foil-card card-c">
+                {slide.cards[2] ? <img src={slide.cards[2]} alt="" /> : <div class="foil-card-inner"></div>}
+              </div>
+              <div class="foil-card card-b">
+                {slide.cards[1] ? <img src={slide.cards[1]} alt="" /> : <div class="foil-card-inner"></div>}
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="foil-card card-c">
-          {imgC ? <img src={imgC} alt="" /> : <div class="foil-card-inner"></div>}
-        </div>
-        <div class="foil-card card-b">
-          {imgB ? <img src={imgB} alt="" /> : <div class="foil-card-inner"></div>}
-        </div>
-      </div>
-    ))}
-  </div>
+      )}
+    </div>
+  ))}
 </section>
 <div class="dots" id="heroDots" aria-hidden="true">
   {HERO_SLIDES.map((_, i) => <span class={i === 0 ? "active" : undefined} data-dot={i}></span>)}
@@ -32,24 +40,24 @@ import { HERO_SLIDES } from "../data/hero-slides.js";
 <script>
   function setupHeroCarousel() {
     const banner = document.querySelector(".hero-banner");
-    const fans = Array.from(document.querySelectorAll(".hero-visual .card-fan"));
+    const slides = Array.from(document.querySelectorAll(".hero-banner .hero-slide"));
     const dots = Array.from(document.querySelectorAll("#heroDots span"));
-    if (fans.length <= 1) return;
+    if (slides.length <= 1) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let active = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
 
     function show(i: number) {
-      fans[active].classList.remove("is-active");
+      slides[active].classList.remove("is-active");
       dots[active]?.classList.remove("active");
       active = i;
-      fans[active].classList.add("is-active");
+      slides[active].classList.add("is-active");
       dots[active]?.classList.add("active");
     }
 
     function next() {
-      show((active + 1) % fans.length);
+      show((active + 1) % slides.length);
     }
 
     function stopAuto() {
@@ -83,15 +91,23 @@ import { HERO_SLIDES } from "../data/hero-slides.js";
   .hero-banner {
     position: relative; margin-top: 18px; border-radius: 14px; overflow: hidden;
     background: var(--zone-dark-bg); min-height: 340px;
+  }
+  .hero-slide {
+    position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none;
+  }
+  .hero-slide.is-active { opacity: 1; pointer-events: auto; }
+
+  .hero-slide-cards {
+    position: relative; height: 100%; min-height: 340px;
     display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center;
     padding: 40px; gap: 24px; color: var(--zone-dark-text);
   }
-  .hero-banner::before, .hero-banner::after { content: ""; position: absolute; z-index: 0; }
-  .hero-banner::before {
+  .hero-slide-cards::before, .hero-slide-cards::after { content: ""; position: absolute; z-index: 0; }
+  .hero-slide-cards::before {
     width: 60%; height: 220%; background: var(--zone-dark-panel); opacity: 0.9;
     top: -60%; left: -18%; transform: rotate(18deg);
   }
-  .hero-banner::after {
+  .hero-slide-cards::after {
     width: 34%; height: 220%; background: #46454c; opacity: 0.8;
     top: -60%; left: 10%; transform: rotate(18deg);
   }
@@ -109,10 +125,7 @@ import { HERO_SLIDES } from "../data/hero-slides.js";
     cursor: pointer; text-decoration: none;
   }
   .hero-visual { position: relative; z-index: 1; height: 100%; min-height: 220px; }
-  .card-fan {
-    position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none;
-  }
-  .card-fan.is-active { opacity: 1; pointer-events: auto; }
+  .card-fan { position: absolute; inset: 0; }
   .foil-card {
     position: absolute; top: 50%; left: 50%; width: 44%; aspect-ratio: 5/7;
     border-radius: 7% / 5%; background: var(--zone-dark-text);
@@ -128,12 +141,16 @@ import { HERO_SLIDES } from "../data/hero-slides.js";
   .card-b { transform: translate(-50%,-50%) rotate(-1deg) translateY(-6%); z-index: 2; }
   .card-c { transform: translate(-50%,-50%) rotate(13deg) translateX(34%); z-index: 1; opacity: 0.9; }
 
+  .hero-slide-image {
+    display: block; width: 100%; height: 100%; min-height: 340px; object-fit: contain; background: #000;
+  }
+
   .dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
   .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: inline-block; cursor: pointer; }
   .dots span.active { background: var(--ink); }
 
   @media (max-width: 860px) {
-    .hero-banner { grid-template-columns: 1fr; padding: 28px; }
+    .hero-slide-cards { grid-template-columns: 1fr; padding: 28px; }
     .hero-visual { min-height: 180px; }
   }
 </style>
