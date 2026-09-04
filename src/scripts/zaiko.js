@@ -40,6 +40,8 @@ function buildStockCard(row, onOrder) {
 
 export async function initZaikoPage(root) {
   const grid = root.querySelector("#stockGrid");
+  const emptyState = root.querySelector("#emptyState");
+  const orderSection = root.querySelector("#orderSection");
   const updatedLabel = root.querySelector("#updatedLabel");
   const form = root.querySelector("#orderForm");
   const itemField = root.querySelector("#orderItemField");
@@ -62,6 +64,9 @@ export async function initZaikoPage(root) {
 
   grid.innerHTML = "";
   rows.forEach((row) => grid.append(buildStockCard(row, selectItem)));
+
+  emptyState?.classList.toggle("show", rows.length === 0);
+  if (orderSection) orderSection.style.display = rows.length === 0 ? "none" : "";
 
   form.addEventListener("submit", (event) => {
     if (!itemField.value) {

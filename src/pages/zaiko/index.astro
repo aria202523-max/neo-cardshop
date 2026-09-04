@@ -18,8 +18,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   </p>
 
   <div class="stock-grid" id="stockGrid"></div>
+  <p class="empty-state" id="emptyState">現在、販売中の在庫はございません。次の入荷までしばらくお待ちください。</p>
 
-  <section class="order-section" id="orderForm-section">
+  <section class="order-section" id="orderSection">
     <h2 class="display">注文リクエスト</h2>
     <p class="order-note">送信後、こちらから折り返しご連絡し、振込先をご案内します。</p>
 
@@ -70,6 +71,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .lead strong { color: var(--ink); }
 
   .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .empty-state { display: none; text-align: center; padding: 32px 0 48px; color: var(--ink-soft); font-size: 14px; }
+  .empty-state.show { display: block; }
   .stock-grid :global(.stock-card) {
     background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
     display: flex; flex-direction: column;
