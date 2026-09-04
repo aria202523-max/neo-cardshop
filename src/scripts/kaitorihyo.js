@@ -251,8 +251,9 @@ export async function initKaitorihyoPage(root) {
   }
 
   // Anything shown as a pickup drops out of every section below it, so the
-  // same card doesn't get repeated down the page.
-  const pickupRows = pickRows(rows, "pickup");
+  // same card doesn't get repeated down the page. The carousel can handle far
+  // more than the default cap, so pickup gets a much higher limit than highlight.
+  const pickupRows = pickRows(rows, "pickup", 20);
   const pickupSet = new Set(pickupRows);
   const remainingRows = rows.filter((r) => !pickupSet.has(r));
 
