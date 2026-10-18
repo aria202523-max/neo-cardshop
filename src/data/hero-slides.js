@@ -8,7 +8,6 @@
 //   → テキストは出さず、1枚の完成した画像(キャンペーンバナーなど)をそのまま表示する。
 export const HERO_SLIDES = [
   { type: "cards", cards: ["", "", ""] },
-  { type: "image", image: "/images/promo-jump-campaign.jpg", alt: "少年ジャンプ系レトロカード買取強化キャンペーン。対象カードの買取価格を10%アップ。NARUTO・ワンピース・ドラゴンボール・ハンター×ハンターのカードを高価買取。" },
   { type: "cards", cards: ["", "", ""] },
   { type: "cards", cards: ["", "", ""] },
   { type: "cards", cards: ["", "", ""] },
