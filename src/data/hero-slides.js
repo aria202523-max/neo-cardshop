@@ -8,6 +8,8 @@
 //   → テキストは出さず、1枚の完成した画像(キャンペーンバナーなど)をそのまま表示する。
 export const HERO_SLIDES = [
   { type: "cards", cards: ["", "", ""] },
+  { type: "image", image: "/images/promo-pokemon-carddass.jpg", alt: "買取UPキャンペーン。ポケモンカードダス・ワンピース・週刊少年ジャンプ系カード(NARUTO・ドラゴンボール・ハンター×ハンターなど)が対象。ポケモンカードダスはXYまで20%アップ(上限3万円)、ジャンプ系は10%アップ(上限3万円)。" },
+  { type: "image", image: "/images/promo-nintendo-carddass.jpg", alt: "ニンテンドーカードダスの買取始めました。値段は相場等を確認してつけさせていただきます。" },
   { type: "cards", cards: ["", "", ""] },
   { type: "cards", cards: ["", "", ""] },
   { type: "cards", cards: ["", "", ""] },
