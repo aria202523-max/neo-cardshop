@@ -102,6 +102,7 @@ function renderPickupGroups(container, pickupRows) {
     if (!items || items.length === 0) return;
 
     const group = el("div", "pickup-cat-group");
+    group.dataset.cat = key;
     group.append(el("h3", "pickup-cat-head", categoryLabel(key)));
 
     const grid = el("div", "pickup-cat-grid");
@@ -152,12 +153,18 @@ function setupFilters(root) {
   const searchInput = root.querySelector("#cardSearch");
   const filterBtns = root.querySelectorAll("#catFilter button");
   const groups = root.querySelectorAll(".cat-group");
+  const pickupGroups = root.querySelectorAll(".pickup-cat-group");
   const emptyState = root.querySelector("#emptyState");
   let currentCat = "all";
 
   function applyFilters() {
     const q = searchInput.value.trim().toLowerCase();
     let anyVisible = false;
+
+    pickupGroups.forEach((group) => {
+      const cat = group.getAttribute("data-cat");
+      group.style.display = currentCat === "all" || cat === currentCat ? "" : "none";
+    });
 
     groups.forEach((group) => {
       const cat = group.getAttribute("data-cat");
