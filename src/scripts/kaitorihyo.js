@@ -87,73 +87,31 @@ function renderImageBlock(container, picked) {
   container.closest(".highlight-block")?.classList.toggle("is-empty", picked.length === 0);
 }
 
-// Sets up the swipe/arrow/dot navigation for the ピックアップ買取 slider.
-// Must run after renderImageBlock() so the slide count is up to date.
-function setupPickupCarousel(root) {
-  const carousel = root.querySelector(".pickup-carousel");
-  const track = root.querySelector("#pickupGrid");
-  const dotsWrap = root.querySelector("#pickupDots");
-  if (!carousel || !track) return;
-
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const items = Array.from(track.children);
-  // Tracked explicitly rather than re-derived from getBoundingClientRect() on every
-  // click: mid-smooth-scroll, geometry reads the in-transit position, so rapid
-  // next/prev clicks would compute the wrong target. Only manual swipes (which have
-  // no "intended" index of their own) fall back to reading the settled geometry.
-  let activeIndex = 0;
-  let settleTimer = null;
-
-  function updateDots() {
-    Array.from(dotsWrap.children).forEach((dot, i) => dot.classList.toggle("active", i === activeIndex));
-  }
-
-  function scrollToIndex(i) {
-    const clamped = Math.max(0, Math.min(items.length - 1, i));
-    if (!items[clamped]) return;
-    activeIndex = clamped;
-    updateDots();
-    track.scrollTo({ left: items[clamped].offsetLeft, behavior: reduceMotion ? "auto" : "smooth" });
-  }
-
-  function syncFromScrollPosition() {
-    if (items.length === 0) return;
-    const trackLeft = track.getBoundingClientRect().left;
-    let closest = 0;
-    let closestDist = Infinity;
-    items.forEach((item, i) => {
-      const dist = Math.abs(item.getBoundingClientRect().left - trackLeft);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closest = i;
-      }
-    });
-    activeIndex = closest;
-    updateDots();
-  }
-
-  carousel.classList.toggle("is-single", items.length <= 1);
-
-  dotsWrap.innerHTML = "";
-  items.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.setAttribute("aria-label", `${i + 1}枚目を表示`);
-    dot.addEventListener("click", () => scrollToIndex(i));
-    dotsWrap.append(dot);
+// ピックアップ買取: カルーセルではなく、カテゴリーごとに見出しを立てて
+// 全件を並べて表示する。
+function renderPickupGroups(container, pickupRows) {
+  container.innerHTML = "";
+  const byCategory = new Map();
+  pickupRows.forEach((row) => {
+    if (!byCategory.has(row.category)) byCategory.set(row.category, []);
+    byCategory.get(row.category).push(row);
   });
-  updateDots();
 
-  root.querySelector(".pickup-prev")?.addEventListener("click", () => scrollToIndex(activeIndex - 1));
-  root.querySelector(".pickup-next")?.addEventListener("click", () => scrollToIndex(activeIndex + 1));
-  track.addEventListener(
-    "scroll",
-    () => {
-      clearTimeout(settleTimer);
-      settleTimer = setTimeout(syncFromScrollPosition, 120);
-    },
-    { passive: true }
-  );
+  CATEGORIES.forEach(({ key }) => {
+    const items = byCategory.get(key);
+    if (!items || items.length === 0) return;
+
+    const group = el("div", "pickup-cat-group");
+    group.append(el("h3", "pickup-cat-head", categoryLabel(key)));
+
+    const grid = el("div", "pickup-cat-grid");
+    items.forEach((row) => grid.append(buildImageCard(row)));
+    group.append(grid);
+
+    container.append(group);
+  });
+
+  container.closest(".highlight-block")?.classList.toggle("is-empty", pickupRows.length === 0);
 }
 
 function renderCatalog(container, rows) {
@@ -236,7 +194,7 @@ function setupFilters(root) {
 }
 
 export async function initKaitorihyoPage(root) {
-  const pickupGrid = root.querySelector("#pickupGrid");
+  const pickupGroups = root.querySelector("#pickupGroups");
   const highlightGrid = root.querySelector("#highlightGrid");
   const catalog = root.querySelector("#catalog");
   const updatedLabel = root.querySelector("#updatedLabel");
@@ -251,14 +209,13 @@ export async function initKaitorihyoPage(root) {
   }
 
   // Anything shown as a pickup drops out of every section below it, so the
-  // same card doesn't get repeated down the page. The carousel can handle far
-  // more than the default cap, so pickup gets a much higher limit than highlight.
+  // same card doesn't get repeated down the page. The grid can handle far more
+  // than the default cap, so pickup gets a much higher limit than highlight.
   const pickupRows = pickRows(rows, "pickup", 20);
   const pickupSet = new Set(pickupRows);
   const remainingRows = rows.filter((r) => !pickupSet.has(r));
 
-  renderImageBlock(pickupGrid, pickupRows);
-  setupPickupCarousel(root);
+  renderPickupGroups(pickupGroups, pickupRows);
   renderImageBlock(highlightGrid, pickRows(remainingRows, "highlight"));
   renderCatalog(catalog, remainingRows);
   setupFilters(root);
