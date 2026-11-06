@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { WEB3FORMS_ACCESS_KEY } from "../../data/site-config.js";
+import { LINE_URL } from "../../data/site-config.js";
 ---
 
 <BaseLayout
   title="在庫一覧・銀行振込でのご注文 | trading card shop NEO"
-  description="NEOの在庫商品一覧です。気になる商品を選んで注文リクエストを送ると、店舗より銀行振込のご案内メールをお送りします。"
+  description="NEOの在庫商品一覧です。気になる商品をLINE公式アカウントでお問い合わせください。銀行振込でご購入いただけます。"
   current="zaiko"
 >
   <div class="page-head">
@@ -14,49 +14,26 @@ import { WEB3FORMS_ACCESS_KEY } from "../../data/site-config.js";
   </div>
 
   <p class="lead">
-    気になる商品の「この商品を注文する」を押すと、下の注文フォームに商品が入力されます。
-    フォーム送信後、店舗より<strong>銀行振込のご案内メール</strong>をお送りします(オンライン決済はまだ対応していません)。
+    気になる商品の「この商品を注文する」を押すと、商品名が下に表示されます。
+    LINE公式アカウントを友だち追加して、その商品名をメッセージでお伝えください。折り返しご連絡し、<strong>銀行振込</strong>のご案内をいたします(オンライン決済はまだ対応していません)。
   </p>
 
   <div class="stock-grid" id="stockGrid"></div>
   <p class="empty-state" id="emptyState">現在、販売中の在庫はございません。次の入荷までしばらくお待ちください。</p>
 
   <section class="order-section" id="orderSection">
-    <h2 class="display">注文リクエスト</h2>
-    <p class="order-note">送信後、こちらから折り返しご連絡し、振込先をご案内します。</p>
+    <h2 class="display">ご注文方法</h2>
+    <p class="order-note">下のLINEボタンから友だち追加して、商品名をメッセージでお送りください。</p>
 
-    <form id="orderForm">
-      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-      <input type="hidden" name="subject" value="在庫注文リクエスト - trading card shop NEO" />
-      <p class="hp-field"><label>ウェブサイト(入力しないでください) <input name="botcheck" /></label></p>
+    <div class="order-item-display" id="orderItemDisplay">商品を選択してください</div>
 
-      <div class="order-item-display" id="orderItemDisplay">商品を選択してください</div>
-      <input type="hidden" id="orderItemField" name="商品" />
-
-      <label class="form-row">
-        <span>お名前</span>
-        <input type="text" name="お名前" required />
-      </label>
-      <label class="form-row">
-        <span>ご連絡先(メールまたは電話番号)</span>
-        <input type="text" name="連絡先" required />
-      </label>
-      <label class="form-row">
-        <span>数量</span>
-        <input type="number" name="数量" min="1" value="1" required />
-      </label>
-      <label class="form-row">
-        <span>備考</span>
-        <textarea name="備考" rows="3"></textarea>
-      </label>
-
-      <button type="submit" class="submit-btn display">注文をリクエストする</button>
-      <p class="form-status" id="formStatus"></p>
-    </form>
+    <a class="line-btn display" href={LINE_URL} target="_blank" rel="noopener noreferrer">
+      LINE公式アカウントを友だち追加する
+    </a>
   </section>
 
   <Fragment slot="footer">
-    在庫はGoogleスプレッドシートと連携し、自動反映されます。注文リクエストはメールで店舗に通知されます(決済は銀行振込・店舗案内制です)。
+    在庫はGoogleスプレッドシートと連携し、自動反映されます。ご注文はLINE公式アカウントで承ります(決済は銀行振込・店舗案内制です)。
   </Fragment>
 </BaseLayout>
 
@@ -103,28 +80,15 @@ import { WEB3FORMS_ACCESS_KEY } from "../../data/site-config.js";
   .order-section { border-top: 1px solid var(--line); padding-top: 32px; }
   .order-note { font-size: 13px; color: var(--ink-soft); margin: 0 0 20px; }
 
-  .hp-field { position: absolute; left: -9999px; }
-
   .order-item-display {
     padding: 12px 16px; border-radius: 8px; background: var(--paper-raised); border: 1px solid var(--line);
-    font-size: 14px; font-weight: 700; margin-bottom: 18px;
+    font-size: 14px; font-weight: 700; margin-bottom: 18px; max-width: 520px;
   }
   .order-item-display.is-error { border-color: var(--ink); background: var(--paper); }
 
-  form#orderForm { display: flex; flex-direction: column; gap: 16px; max-width: 520px; }
-  .form-row { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; }
-  .form-row input, .form-row textarea {
-    font-size: 14px; padding: 12px 14px; border-radius: 8px; border: 2px solid var(--ink);
-    background: var(--surface); color: var(--ink); font-weight: 400;
+  .line-btn {
+    display: inline-block; padding: 16px 32px; border-radius: 999px;
+    background: var(--ink); color: var(--paper); font-size: 16px; text-decoration: none;
   }
-  .submit-btn {
-    align-self: flex-start; padding: 14px 28px; border-radius: 999px; border: none;
-    background: var(--ink); color: var(--paper); font-size: 14px; cursor: pointer;
-  }
-  .submit-btn:hover { filter: brightness(0.9); }
-  .submit-btn:disabled { opacity: 0.6; cursor: default; }
-
-  .form-status { margin: 0; font-size: 13px; font-weight: 700; }
-  .form-status.is-success { color: var(--ink); }
-  .form-status.is-error { color: var(--ink); }
+  .line-btn:hover { filter: brightness(0.9); }
 </style>
